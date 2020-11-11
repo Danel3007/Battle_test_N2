@@ -1,0 +1,5 @@
+build/
+dist/
+__pycache__/
+Battle_test_N2_LF.py
+Battle_test_N2_LF.spec
