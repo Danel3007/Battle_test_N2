@@ -2,11 +2,6 @@ end = True
 meter = 0
 import time as t
 import random, os
-mini_boss_dict = ['Дарт Вейдер(Звездные Войны)','Донки Конг','Призрак(PACMAN)','Локи(Марвел)','Майлз Эджуорт(Ace Attorney)','Магнето(Люди Х)']
-
-boss='get stick bugged lol'
-while boss not in ['Дарт Вейдер(Звездные Войны)','Донки Конг','Призрак(PACMAN)','Локи(Марвел)','Майлз Эджуорт(Ace Attorney)','Магнето(Люди Х)']:
-    boss = random.choice(mini_boss_dict)
     
 game_state = {
   'items': [
@@ -25,6 +20,7 @@ game_state = {
   'sharp':0,
 }
 
+mini_boss_dict = ['Дарт Вейдер(Звездные Войны)','Донки Конг','Призрак(PACMAN)','Локи(Марвел)','Майлз Эджуорт(Ace Attorney)']
 vader_attacks = ['Сила','Взмах мечом','Легион штурмовиков','Заряд атаки']
 dk_attacks = ['Банановая кожура','Суперудар','Бочка-пушка','Взятие']
 ghost_attacks = ['Страшная рожица','Подход вплотную','Объединение призраков','Растворение']
@@ -62,6 +58,7 @@ def qte():
     end = False
     return end
 
+boss = random.choice(mini_boss_dict)
 class BossRoom:
     print('Вас вызывает на битву',boss)
     
@@ -557,17 +554,17 @@ class BossRoom:
                 print("")
                 # Проверки
             if state['player_health'] <= 0:
-                print("Поражение")
+                printEm("YOU DIED")
                 return "LOSE"
 
-room = BossRoom()
-result = room.battle(game_state)
-if result == 'WIN':
-    print("")
-else:
-    print('YOU DIED')
-    print("")
+# room = BossRoom()
+# result = room.battle(game_state)
+# if result == 'WIN':
+#     print("")
+# else:
+#     print('YOU DIED')
+#     print("")
 
-print('Вы сыграли в версию 0.3.0')
-print('Нажмите ENTER чтобы выйти')
-print('Перезайдите чтобы сразиться с другим боссом (но есть шанс того, что вам попадется тот же босс)')
+# print('Вы сыграли в версию 0.3.0')
+# print('Нажмите ENTER чтобы выйти')
+# print('Перезайдите чтобы сразиться с другим боссом (но есть шанс того, что вам попадется тот же босс)')
