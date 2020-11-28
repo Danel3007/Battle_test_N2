@@ -12,10 +12,12 @@ from state import read_state, write_state
 from Battle_test_N2 import BossRoom
 
 game_state = {
-  'items': [
-    'Коготь Росомахи',
-    'Электрошокер',
-    'Лампа'
+  'items':[
+    'kek',
+    'hello there',
+    'ronaldinho soccer',
+    'megalovania',
+    'aeiou'
   ],
   'player_health':100,
   'taken':0,
@@ -48,6 +50,10 @@ class Room:
         self.lamp = lamp
         self.passage = passage
         
+class TestRoom1:
+    def __init__(self, lamp):
+        self.lamp = lamp
+
 class FinalBossRoom:
     def __init__(self, name):
         self.name = name
@@ -61,7 +67,7 @@ lamp_dict = ["лампа.","неоновая лампа.","подсвечник.
 itm_dict = ["труба.","ножик.","газовый баллон.","питомец-хедкраб.",'сюрикен.','бумеранг.','коготь Росомахи.','клинок из дамасской стали.']
 pass1_dict = ["ведет средневековый туннель","ведет лестница вверх.","ведет горка с лестницей.","ведет велодорожка."]
 mini_boss_dict = ['Дарт Вейдер(Звездные Войны)','Донки Конг','Призрак(PACMAN)','Локи(Марвел)','Майлз Эджуорт(Ace Attorney)']
-boss_dict = ['Дарт Сидиус(Звездные Войны)','Магнето(Люди Х)','Санс(Undertale)']
+boss_dict = ['Дарт Сидиус(Звездные Войны)','Санс(Undertale)']
 
 def random_ItemRoom():
     return ItemRoom(
@@ -69,6 +75,11 @@ def random_ItemRoom():
         random.choice(itm_dict),
         random.choice(pass1_dict),
         )
+
+def random_TestRoom1():
+    return TestRoom1(
+        random.choice(lamp_dict),
+)
 
 def random_StartRoom():
     return StartRoom(
@@ -96,24 +107,19 @@ def random_Room():
 
 room_map = [
     [ random_StartRoom(), random_StartRoom() ],
-    [ random_Room(), random_Room() ],
-    [ random_Room(), random_Room() ],
+    [ random_TestRoom1(), random_TestRoom1() ],
     [ random_MiniBossRoom(), random_MiniBossRoom() ],
     [ random_ItemRoom(), random_ItemRoom() ],
-    [ random_Room(), random_Room() ],
-    [ random_Room(), random_Room() ],
+    [ random_TestRoom1(), random_TestRoom1() ],
     [ random_MiniBossRoom(), random_MiniBossRoom() ],
     [ random_ItemRoom(), random_ItemRoom() ],
-    [ random_Room(), random_Room() ],
-    [ random_Room(), random_Room() ],
+    [ random_TestRoom1(), random_TestRoom1() ],
     [ random_MiniBossRoom(), random_MiniBossRoom() ],
     [ random_ItemRoom(), random_ItemRoom() ],
-    [ random_Room(), random_Room() ],
-    [ random_Room(), random_Room() ],
+    [ random_TestRoom1(), random_TestRoom1() ],
     [ random_MiniBossRoom(), random_MiniBossRoom() ],
     [ random_ItemRoom(), random_ItemRoom() ],
-    [ random_Room(), random_Room() ],
-    [ random_Room(), random_Room() ],
+    [ random_TestRoom1(), random_TestRoom1() ],
     [ random_FinalBossRoom(), random_FinalBossRoom() ]
 ]
 
@@ -136,36 +142,48 @@ def start():
             print('Вы просыпаетесь в какой-то комнате. Вам становится немного не по себе.')
             print('Вы видите сумку. В сумке лежит',room.item)
             print('Вы встаете и осматриваете комнату. Серые стены, на потолке висит',room.lamp)
-            for i in range(len(passages)):
-                print('{}: Из комнаты {}'.format(labels[i],passages[i].passage))
 
         if isinstance(room, MiniBossRoom):
             print()
             room = BossRoom()
             result = room.battle(game_state)
 
+
         if isinstance(room, ItemRoom):
             print('В углу стоит чемоданчик. Там лежит',room.item)
+
 
         if isinstance(room, Room):
             print('На потолке висит',room.lamp)
             for i in range(len(passages)):
                 print('{}: Из комнаты {}'.format(labels[i],passages[i].passage))
-
+            
+        if isinstance(room, TestRoom1):
+            print('Птоирачй эотт тксет. Елси ты пнимашоеь эотт тсект, это хшооро, вдеь он пнаодибстя при ршнееии днаонй гмовооллкои.')
+            print('Сшлауй сдюа, зпомнаи: птяь чтреые всемоь дветяь. Сотп, это нпрьвеилнао. Пиралвньо - чытрее всомеь дястеь.')
+            print('Удачи :D')
+            print('Аноним')
+            print('Введите код:')
+            code = int(input())
+            if code==4810:
+                print('Правильно :D')
+            else:
+                print('Неправильно')
+                continue
 
         #for passage in passages:
         #    print('Из комнаты',passage.passage)
-
-        choice = int(input())
+        
+        print('Enter: Перейти в следующую комнату')
+        input()
 
         level += 1
-        room_number = choice - 1
 
 #Shutdown :\
 def handler(signum, frame):
     print()
     write_state(game_state)
-    os.exit(0)
+    sys.exit(0)
 
 signal.signal(signal.SIGTERM, handler)
 signal.signal(signal.SIGINT, handler)
