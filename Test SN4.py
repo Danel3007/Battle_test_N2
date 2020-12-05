@@ -54,6 +54,10 @@ class TestRoom1:
     def __init__(self, lamp):
         self.lamp = lamp
 
+class TestRoom2:
+    def __init__(self, lamp):
+        self.lamp = lamp
+
 class FinalBossRoom:
     def __init__(self, name):
         self.name = name
@@ -78,6 +82,11 @@ def random_ItemRoom():
 
 def random_TestRoom1():
     return TestRoom1(
+        random.choice(lamp_dict),
+)
+
+def random_TestRoom2():
+    return TestRoom2(
         random.choice(lamp_dict),
 )
 
@@ -110,7 +119,7 @@ room_map = [
     [ random_TestRoom1(), random_TestRoom1() ],
     [ random_MiniBossRoom(), random_MiniBossRoom() ],
     [ random_ItemRoom(), random_ItemRoom() ],
-    [ random_TestRoom1(), random_TestRoom1() ],
+    [ random_TestRoom2(), random_TestRoom2() ],
     [ random_MiniBossRoom(), random_MiniBossRoom() ],
     [ random_ItemRoom(), random_ItemRoom() ],
     [ random_TestRoom1(), random_TestRoom1() ],
@@ -158,11 +167,62 @@ def start():
             for i in range(len(passages)):
                 print('{}: Из комнаты {}'.format(labels[i],passages[i].passage))
             
-        if isinstance(room, TestRoom1):
-            print('Птоирачй эотт тксет. Елси ты пнимашоеь эотт тсект, это хшооро, вдеь он пнаодибстя при ршнееии днаонй гмовооллкои.')
-            print('Сшлауй сдюа, зпомнаи: птяь чтреые всемоь дветяь. Сотп, это нпрьвеилнао. Пиралвньо - чытрее всомеь дястеь.')
-            print('Удачи :D')
+        if isinstance(room, TestRoom2):
+            print('Вы входите в комнату, на стенах которой по книжной полке')
+            print('Вы видите записку: "Код спрятан среди полок."')
+            print('"Удачи :D"')
             print('Аноним')
+            while True:
+                print('Что будете делать?')
+                print('A: Посмотреть на стену справа')
+                print('B: Посмотреть на стену слева')
+                print('C: Посмотреть на стену спереди')
+                print('D: Посмотреть на стену сзади')
+                choice = str(input())
+                if choice=='A':
+                    while True:
+                        print('Вы смотрите на стену справа')
+                        print('Вы видите 4 синих книги.')
+                        print('1: Пролистать первую')
+                        print('2: Пролистать вторую')
+                        print('3: Пролистать третью')
+                        print('4: Пролистать четвертую')
+                        print('5: Назад')
+                        choice2 = int(input())
+                        if choice2==1:
+                            print('Вы пролистали книгу.')
+                            print('Там пусто.')
+                            continue
+                        if choice2==2:
+                            print('Вы пролистали книгу.')
+                            print('В ней есть надпись: "Первый Мститель"')
+                            continue
+                        if choice2==3:
+                            print('Вы пролистали книгу.')
+                            print('В ней есть надпись: "aeiou"')
+                            continue
+                        if choice2==4:
+                            print('Вы пролистали книгу.')
+                            print('Она заполнена фразами "Lorem ipsum dolor sit amet."')
+                            continue
+                        if choice2==5:
+                            break
+                choice = str(input())
+                if choice=='B':
+                    print('Вы смотрите на стену слева')
+                choice = str(input())
+                if choice=='C':
+                    print('Вы смотрите на стену спереди')
+                choice = str(input())
+                if choice=='D':
+                    print('Вы смотрите на стену сзади')
+                
+        if isinstance(room, TestRoom1):
+            print('Вы видите кодовый замок с запиской.')
+            print('"Птоирачй эотт тксет. Елси ты пнимашоеь эотт тсект, это хшооро, вдеь он пнаодибстя при ршнееии днаонй гмовооллкои."')
+            print('"Сшлауй сдюа, зпомнаи: птяь чтреые всемоь дветяь. Сотп, это нпрьвеилнао. Пиралвньо - чытрее всомеь дястеь."')
+            print('"Удачи :D"')
+            print('"-Аноним"')
             print('Введите код:')
             code = int(input())
             if code==4810:

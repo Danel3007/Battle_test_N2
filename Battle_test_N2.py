@@ -129,7 +129,7 @@ class BossRoom:
                 elif state['choose']==0:
                     print('Вы ударили босса кулаком')
                     t.sleep(1)
-                    dmg = random.randint(13,17)                
+                    dmg = random.randint(150,201)                
                     print('Вы нанесли',dmg,'урона')
                     boss_health -= dmg
                     t.sleep(1)
