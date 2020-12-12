@@ -2,10 +2,11 @@ a = 'lol'
 b = 'lol'
 c = 'lol'
 import random
+import threading
 end = True
 meter = 0
 import time as t
-import random, os
+import random, os, sys
 import signal
 
 from state import read_state, write_state
@@ -29,6 +30,9 @@ game_state = {
   'wall':0,
   'sharp':0,
 }
+
+coffee = 0
+counter = 0
 
 def miniBossFight():
     pass
@@ -132,7 +136,12 @@ room_map = [
     [ random_FinalBossRoom(), random_FinalBossRoom() ]
 ]
 
-
+def increment():
+    global counter
+    while True:
+        counter = counter + 1
+        t.sleep(1)
+        
 def start():
     level = 0
     room_number = 0
@@ -168,11 +177,13 @@ def start():
                 print('{}: Из комнаты {}'.format(labels[i],passages[i].passage))
             
         if isinstance(room, TestRoom2):
+            global counter
             print('Вы входите в желтую и просторную комнату')
             print('Вы видите записку: "Код состоит из четырех цифр и спрятан в комнате."')
             print('"Удачи :D"')
             print('Аноним II')
             while True:
+                global counter
                 print('Что будете делать?')
                 print('A: Посмотреть на стену справа')
                 print('B: Посмотреть на стену слева')
@@ -258,8 +269,8 @@ def start():
                             print('Какую откроете?')
                             print('1: Верхнюю')
                             print('2: Нижнюю')
-                            
                             continue
+                        
                         if choice2==2:
                             print('Вы подошли к тумбе справа.')
                             print('Это просто деревянный куб.')
@@ -274,7 +285,103 @@ def start():
                             continue
 
                 if choice=='D':
-                    print('Вы смотрите на стену сзади')
+                    while True:
+                        global counter
+                        print('Вы смотрите на стену сзади')
+                        print('Вы видите комфортное кресло.')
+                        print('Рядом стоит тумба, а на ней кофе.')
+                        print('1: Сесть в кресло.')
+                        print('2: Назад')
+                        choice2 = int(input())
+                        if choice2==1:
+                                print('Вы сели в кресло')
+                                t.sleep(1)
+                                print('...')
+                                t.sleep(3)
+                                while True:
+                                    global counter
+                                    global coffee
+                                    if coffee==8:
+                                        print('Вы выпили весь кофе.')
+                                        print('На дне кружки есть надпись:')
+                                        print('Последняя цифра - 9')
+                                        print('Ну что ж, пригодится')
+                                    
+                                    print('1: Попить кофе')
+                                    print('2: Посидеть и подумать')
+                                    print('3: Встать с кресла')
+                                    choice2 = int(input())
+                                    if choice2==1:
+                                        print('Вы глотнули кофе. Он горький, но вкусный.')
+                                        coffee = coffee + 1
+                                        continue
+
+                                    if choice2==2:
+                                        counter = 0
+                                        print('Вы сели в кресло.')
+                                        print('Оно мягкое :D')
+                                        print('1:Выйти')
+                                        tim = threading.Thread(target = increment)
+                                        tim.start()
+                                        choice2 = int(input())
+                                        if choice2 == 1:
+                                            print('Вы сидели',counter,'секунд')
+                                            if counter>=10:
+                                                print('???:"Он слишком долго здесь сидит"')
+                                                t.sleep(1)
+                                                print('????:"Может, у него проблемы?"')
+                                                t.sleep(1)
+                                                print('???:"Да, он не подходит"')
+                                                t.sleep(1)
+                                                print('????:"Выпускаем его"')
+                                                t.sleep(1)
+                                                print('Часть стены отодвинулась')
+                                                t.sleep(1)
+                                                print('За ней показалась лестница')
+                                                t.sleep(1)
+                                                print('Идти туда?')
+                                                t.sleep(1)
+                                                print('Введите ДА или НЕТ:')
+                                                choice2 = str(input())
+                                                if choice2=='ДА':
+                                                    print('Вы прошли в проход и поднялись по лестнице')
+                                                    t.sleep(1)
+                                                    print('Вы вышли через дверь')
+                                                    t.sleep(1)
+                                                    print('Снаружи простиралось до самого горизонта пшеничное поле.')
+                                                    t.sleep(1)
+                                                    print('...')
+                                                    t.sleep(1)
+                                                    print('...')
+                                                    t.sleep(1)
+                                                    print('...')
+                                                    print('Вы услышали, как дверь сзади хлопнула')
+                                                    t.sleep(1)
+                                                    print('Хмм... Что теперь делать...')
+                                                    t.sleep(2)
+                                                    print('Секретная концовка №1 открыта.')
+                                                    sys.exit()
+                                                elif choice2=='НЕТ':
+                                                    print('????:"Почему он не идет?"')
+                                                    t.sleep(1)
+                                                    print('???:"Хехе. Мы дали ему шанс."')
+                                                    t.sleep(1)
+                                                    print('???:"Закрывай проход!"')
+                                                    t.sleep(1)
+                                                    print('????:"Эмм... Хорошо, сэр."')
+                                                    t.sleep(1)
+                                                    print('Проход закрылся, и пол под вашими ногами раздвинулся.')
+                                                    t.sleep(1)
+                                                    print('Вы упали в яму внизу')
+                                                    t.sleep(2)
+                                                    print('Секретная концовка №2 открыта.')
+                                        continue
+
+                                    if choice2==3:
+                                        continue
+                        
+                    if choice2==2:
+                            break
                     
                 
                 if choice=='E':
@@ -284,6 +391,11 @@ def start():
                         print('Вы ввели 6969')
                         print('Из замка раздался звук:')
                         print('"Серьёзно?"')
+                        print('Дверь не открылась')
+                    if code==2401:
+                        print('Вы ввели 2401.')
+                        print('Из замка раздался звук:')
+                        print('"Ахахах попался! Тут нет Луиджи."')
                         print('Дверь не открылась')
                 
         if isinstance(room, TestRoom1):
