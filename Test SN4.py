@@ -12,6 +12,15 @@ import signal
 from state import read_state, write_state
 from Battle_test_N2 import BossRoom
 
+print('                 ПРОЧИТАЙТЕ                 ')
+print('         Если вы набираете что либо        ')
+print('      то убедитесь что вы набрали всё,   ')
+print('   что хотели, и после этого жмите Enter,')
+print('  просто автор ленивая **па и он не хочет')
+print('       тратить время на исправление')
+print('       Нажмите Enter если прочитали')
+input()
+
 game_state = {
   'items':[
     'kek',
@@ -62,6 +71,15 @@ class TestRoom2:
     def __init__(self, lamp):
         self.lamp = lamp
 
+class TestRoom3:
+    def __init__(self, lamp):
+        self.lamp = lamp
+
+class TestRoom4:
+    def __init__(self, lamp):
+        self.lamp = lamp
+
+
 class FinalBossRoom:
     def __init__(self, name):
         self.name = name
@@ -91,6 +109,16 @@ def random_TestRoom1():
 
 def random_TestRoom2():
     return TestRoom2(
+        random.choice(lamp_dict),
+)
+
+def random_TestRoom3():
+    return TestRoom3(
+        random.choice(lamp_dict),
+)
+
+def random_TestRoom4():
+    return TestRoom4(
         random.choice(lamp_dict),
 )
 
@@ -126,10 +154,10 @@ room_map = [
     [ random_TestRoom2(), random_TestRoom2() ],
     [ random_MiniBossRoom(), random_MiniBossRoom() ],
     [ random_ItemRoom(), random_ItemRoom() ],
-    [ random_TestRoom1(), random_TestRoom1() ],
+    [ random_TestRoom3(), random_TestRoom3() ],
     [ random_MiniBossRoom(), random_MiniBossRoom() ],
     [ random_ItemRoom(), random_ItemRoom() ],
-    [ random_TestRoom1(), random_TestRoom1() ],
+    [ random_TestRoom4(), random_TestRoom4() ],
     [ random_MiniBossRoom(), random_MiniBossRoom() ],
     [ random_ItemRoom(), random_ItemRoom() ],
     [ random_TestRoom1(), random_TestRoom1() ],
@@ -326,7 +354,7 @@ def start():
                                         choice2 = int(input())
                                         if choice2 == 1:
                                             print('Вы сидели',counter,'секунд')
-                                            if counter>=10:
+                                            if counter>=301:
                                                 print('???:"Он слишком долго здесь сидит"')
                                                 t.sleep(1)
                                                 print('????:"Может, у него проблемы?"')
@@ -375,6 +403,7 @@ def start():
                                                     print('Вы упали в яму внизу')
                                                     t.sleep(2)
                                                     print('Секретная концовка №2 открыта.')
+                                                    sys.exit()
                                         continue
 
                                     if choice2==3:
@@ -392,11 +421,20 @@ def start():
                         print('Из замка раздался звук:')
                         print('"Серьёзно?"')
                         print('Дверь не открылась')
+                        continue
                     if code==2401:
                         print('Вы ввели 2401.')
                         print('Из замка раздался звук:')
                         print('"Ахахах попался! Тут нет Луиджи."')
                         print('Дверь не открылась')
+                        continue
+                    if code==5489:
+                        print('Вы ввели 5489')
+                        t.sleep(1)
+                        print('...')
+                        t.sleep(1)
+                        print('Дверь открылась!')
+                        break
                 
         if isinstance(room, TestRoom1):
             print('Вы видите кодовый замок с запиской.')
@@ -404,6 +442,48 @@ def start():
             print('"Сшлауй сдюа, зпомнаи: птяь чтреые всемоь дветяь. Сотп, это нпрьвеилнао. Пиралвньо - чытрее всомеь дястеь."')
             print('"Удачи :D"')
             print('"-Аноним"')
+            print('Введите код:')
+            code = int(input())
+            if code==4810:
+                print('Правильно :D')
+            else:
+                print('Неправильно')
+                continue
+
+        if isinstance(room, TestRoom3):
+            print('Вы видите кодовый замок (опять?) с запиской.')
+            print('"Найди знак доллара и напиши где он"')
+            print('Ниже видно вот что:')
+            print('    A B C D E F G H I J K L M N')
+            print('                               ')
+            print('1   8 8 8 8 8 8 8 8 8 8 8 8 8 8')
+            print('2   8 8 8 8 8 8 8 8 8 8 8 8 8 8')
+            print('3   8 8 8 8 8 8 8 8 8 8 8 8 8 8')
+            print('4   8 8 8 8 8 8 8 8 8 8 8 8 8 8')
+            print('5   8 8 8 8 8 8 8 8 8 8 8 8 8 8')
+            print('6   8 8 8 8 8 8 8 8 8 8 8 8 8 8')
+            print('7   8 8 8 8 8 8 8 8 8 8 8 8 8 8')
+            print('8   8 8 8 8 8 8 8 8 8 8 8 8 8 8')
+            print('9   8 8 8 8 8 8 8 8 8 8 8 8 8 8')
+            print('10  8 8 8 8 8 8 8 8 8 8 8 $ 8 8')
+            print('11  8 8 8 8 8 8 8 8 8 8 8 8 8 8')
+            print('12  8 8 8 8 8 8 8 8 8 8 8 8 8 8')
+            print('"Удачи :D"')
+            print('"-Аноним III"')
+            print('Когда уже закончатся эти анонимы?')
+            print('Введите код (сначала заглавную букву, потом цифру, слитно):')
+            code = str(input())
+            if code=='L10':
+                print('Правильно :D')
+            else:
+                print('Неправильно')
+                continue
+
+        if isinstance(room, TestRoom4):
+            print('Вы видите кодовый замок (да сколько можно?) с запиской.')
+            print('"aeiou"')
+            print('"Удачи :D"')
+            print('"-Аноним IV"')
             print('Введите код:')
             code = int(input())
             if code==4810:

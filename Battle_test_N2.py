@@ -58,8 +58,8 @@ def qte():
     end = False
     return end
 
-boss = random.choice(mini_boss_dict)
 class BossRoom:
+    boss = random.choice(mini_boss_dict)
     print('Вас вызывает на битву',boss)
     
     def __init__(self):
