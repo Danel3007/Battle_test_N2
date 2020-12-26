@@ -16,7 +16,7 @@ print('                 ПРОЧИТАЙТЕ                 ')
 print('         Если вы набираете что либо        ')
 print('      то убедитесь что вы набрали всё,   ')
 print('   что хотели, и после этого жмите Enter,')
-print('  просто автор ленивая **па и он не хочет')
+print('  просто автор ленивая *опа и он не хочет')
 print('       тратить время на исправление')
 print('       Нажмите Enter если прочитали')
 input()
@@ -204,12 +204,13 @@ def start():
             for i in range(len(passages)):
                 print('{}: Из комнаты {}'.format(labels[i],passages[i].passage))
             
-        if isinstance(room, TestRoom2):
+        if isinstance(room, TestRoom3):
             global counter
             print('Вы входите в желтую и просторную комнату')
-            print('Вы видите записку: "Код состоит из четырех цифр и спрятан в комнате."')
+            print('Вы видите записку (да ладно!): "Код состоит из четырех цифр и спрятан в комнате."')
             print('"Удачи :D"')
-            print('Аноним II')
+            print('"Аноним III"')
+            print('Когда уже закончатся эти анонимы?')
             while True:
                 global counter
                 print('Что будете делать?')
@@ -442,15 +443,17 @@ def start():
             print('"Сшлауй сдюа, зпомнаи: птяь чтреые всемоь дветяь. Сотп, это нпрьвеилнао. Пиралвньо - чытрее всомеь дястеь."')
             print('"Удачи :D"')
             print('"-Аноним"')
-            print('Введите код:')
-            code = int(input())
-            if code==4810:
-                print('Правильно :D')
-            else:
-                print('Неправильно')
-                continue
+            while True:
+                print('Введите код:')
+                code = int(input())
+                if code==4810:
+                    print('Правильно :D')
+                    break
+                else:
+                    print('Неправильно')
+                    continue
 
-        if isinstance(room, TestRoom3):
+        if isinstance(room, TestRoom2):
             print('Вы видите кодовый замок (опять?) с запиской.')
             print('"Найди знак доллара и напиши где он"')
             print('Ниже видно вот что:')
@@ -469,28 +472,58 @@ def start():
             print('11  8 8 8 8 8 8 8 8 8 8 8 8 8 8')
             print('12  8 8 8 8 8 8 8 8 8 8 8 8 8 8')
             print('"Удачи :D"')
-            print('"-Аноним III"')
-            print('Когда уже закончатся эти анонимы?')
-            print('Введите код (сначала заглавную букву, потом цифру, слитно):')
-            code = str(input())
-            if code=='L10':
-                print('Правильно :D')
-            else:
-                print('Неправильно')
-                continue
+            print('"-Аноним II"')
+            while True:
+                print('Введите код (сначала заглавную букву, потом цифру, слитно):')
+                code = str(input())
+                if code=='L10':
+                    print('Правильно :D')
+                    break
+                else:
+                    print('Неправильно')
+                    continue
 
         if isinstance(room, TestRoom4):
+            n69=0
             print('Вы видите кодовый замок (да сколько можно?) с запиской.')
             print('"aeiou"')
             print('"Удачи :D"')
             print('"-Аноним IV"')
-            print('Введите код:')
-            code = int(input())
-            if code==4810:
-                print('Правильно :D')
-            else:
-                print('Неправильно')
-                continue
+            print('И что делать?')
+            t.sleep(1)
+            print('...')
+            t.sleep(1)
+            print('Вы перевернули записку')
+            print('Там написано: "Сдвиг - 4 буквы влево"')
+            print('УГЦА ХИРА ЗИЁГЦА ТЗМС""')
+            while True:
+                print('Введите код:')
+                code = int(input())
+                if code==5791:
+                    print('Правильно :D')
+                    break
+                elif code==6969:
+                    print('Неправильно')
+                    n69=n69+1
+                    if n69==4:
+                        print('???:"Он настолько испорчен?"')
+                        t.sleep(1)
+                        print('????:"Видимо да"')
+                        t.sleep(1)
+                        print('???:"Он нам не подходит, заканчивайте тестирование"')
+                        t.sleep(1)
+                        print('???:"Да, сэр."')
+                        t.sleep(1)
+                        print('Пол под вашими ногами открылся и вы упали вниз.')
+                        t.sleep(2)
+                        print('Секретная концовка №3 открыта.')
+                        sys.exit()
+                    else:
+                        continue
+                    
+                else:
+                    print('Неправильно')
+                    continue
 
         #for passage in passages:
         #    print('Из комнаты',passage.passage)
