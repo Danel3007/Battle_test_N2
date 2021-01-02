@@ -93,7 +93,7 @@ lamp_dict = ["лампа.","неоновая лампа.","подсвечник.
 itm_dict = ["труба.","ножик.","газовый баллон.","питомец-хедкраб.",'сюрикен.','бумеранг.','коготь Росомахи.','клинок из дамасской стали.']
 pass1_dict = ["ведет средневековый туннель","ведет лестница вверх.","ведет горка с лестницей.","ведет велодорожка."]
 mini_boss_dict = ['Дарт Вейдер(Звездные Войны)','Донки Конг','Призрак(PACMAN)','Локи(Марвел)','Майлз Эджуорт(Ace Attorney)']
-boss_dict = ['Дарт Сидиус(Звездные Войны)','Санс(Undertale)']
+final_boss_dict = ['Дарт Сидиус(Звездные Войны)','Санс(Undertale)']
 
 def random_ItemRoom():
     return ItemRoom(
@@ -137,7 +137,7 @@ def random_MiniBossRoom():
 
 def random_FinalBossRoom():
     return FinalBossRoom(
-        random.choice(boss_dict)        
+        random.choice(final_boss_dict)        
         )
 
 def random_Room():
@@ -291,6 +291,7 @@ def start():
                         print('Вы видите дверь с замком, и две тумбы по бокам.')
                         print('1: Открыть первую')
                         print('2: Открыть вторую')
+                        print('3: Выйти')
                         choice2 = int(input())
                         if choice2==1:
                             print('Вы подошли к тумбе слева')
@@ -312,6 +313,9 @@ def start():
                             print('E 7 9 5 8 3')
                             print('3:DJ')
                             continue
+
+                        if choice2==3:
+                            break
 
                 if choice=='D':
                     while True:
