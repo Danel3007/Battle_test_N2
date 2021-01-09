@@ -169,6 +169,27 @@ def increment():
     while True:
         counter = counter + 1
         t.sleep(1)
+
+def caesar(text, shift):
+    ciphertext = ''
+
+    for c in text:
+        if c == ' ':
+            ciphertext += ' '
+            continue
+
+        index = ord(c)
+
+        alpha_no = index - ord('А')
+        shifted = (alpha_no + shift) % 32
+
+        new_index = ord('А') + shifted
+
+        ciphertext += chr(new_index)
+
+    return ciphertext
+
+
         
 def start():
     level = 0
@@ -498,8 +519,10 @@ def start():
             print('...')
             t.sleep(1)
             print('Вы перевернули записку')
-            print('Там написано: "Сдвиг - 4 буквы влево"')
-            print('УГЦА ХИРА ЗИЁГЦА ТЗМС""')
+            hi = 'ПЯТЬ СЕМЬ ДЕВЯТЬ ОДИН'
+            yo = random.randint(1,7)
+            print('Там написано: "Сдвиг - ',yo,'"')
+            print(caesar(hi,yo))
             while True:
                 print('Введите код:')
                 code = int(input())
