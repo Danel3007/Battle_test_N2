@@ -11,7 +11,7 @@ import signal
 
 from state import read_state, write_state
 from Battle_test_N2 import BossRoom
-from Final_Boss_Test import FinBossRoom
+from FinalBoss import FinBossRoom
 
 print('                 ПРОЧИТАЙТЕ                 ')
 print('         Если вы набираете что либо        ')
