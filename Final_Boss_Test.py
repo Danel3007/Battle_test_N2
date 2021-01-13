@@ -15,48 +15,24 @@ game_state = {
 final_boss_dict = ['Дарт Сидиус(Звездные Войны)','Санс(Undertale)']
 sidious_attacks = ['Молния Силы','Армия красных штурмовиков','Лазер Звезды Смерти','i AM The Senate','Экзорцизм']
 
-boss = random.choice(final_boss_dict)
-
 evade = 0
 
-def qte():
-    global end
-  # 8.358885049819946
-  # 2.5497920513153076
-    val = 0
-
-    for i in range(10):
-        start = t.time()
-        input()
-        end = t.time()
-
-        delta = end - start
-        val = val + delta
-
-    if val < 4:
-        # win
-        end = True
-        return end
-
-    end = False
-    return end
-
-class BossRoom:
+class FinBossRoom:
     global boss
     global evade
     boss = random.choice(final_boss_dict)
-    print('Вас вызывает на битву',boss)
     
     def __init__(self):
         pass
 
-    def battle(self, state={}):
+    def battlef(self, state={}):
         global evade
         boss_health=1
         if boss=='Санс(Undertale)':
             boss_health==1
         else:
             boss_health = 300
+        print('Вас вызывает на битву',boss)
 
         while True:
             global evade
@@ -358,14 +334,14 @@ class BossRoom:
                 printEm("YOU DIED")
                 return "LOSE"
 
-room = BossRoom()
-result = room.battle(game_state)
-if result == 'WIN':
-     print("")
-else:
-     print('YOU DIED')
-     print("")
+#room = FinalBossRoom()
+#result = room.battle(game_state)
+#if result == 'WIN':
+#     print("")
+#else:
+#     print('YOU DIED')
+#     print("")
 
-# print('Вы сыграли в версию 0.3.0')
+# print('Вы сыграли в версию 0.8.0')
 # print('Нажмите ENTER чтобы выйти')
 # print('Перезайдите чтобы сразиться с другим боссом (но есть шанс того, что вам попадется тот же босс)')

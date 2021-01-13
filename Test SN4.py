@@ -11,6 +11,7 @@ import signal
 
 from state import read_state, write_state
 from Battle_test_N2 import BossRoom
+from Final_Boss_Test import FinBossRoom
 
 print('                 ПРОЧИТАЙТЕ                 ')
 print('         Если вы набираете что либо        ')
@@ -78,7 +79,6 @@ class TestRoom3:
 class TestRoom4:
     def __init__(self, lamp):
         self.lamp = lamp
-
 
 class FinalBossRoom:
     def __init__(self, name):
@@ -160,7 +160,6 @@ room_map = [
     [ random_TestRoom4(), random_TestRoom4() ],
     [ random_MiniBossRoom(), random_MiniBossRoom() ],
     [ random_ItemRoom(), random_ItemRoom() ],
-    [ random_TestRoom1(), random_TestRoom1() ],
     [ random_FinalBossRoom(), random_FinalBossRoom() ]
 ]
 
@@ -215,6 +214,10 @@ def start():
             room = BossRoom()
             result = room.battle(game_state)
 
+        if isinstance(room, FinalBossRoom):
+            print()
+            room = FinBossRoom()
+            result = room.battlef(game_state)
 
         if isinstance(room, ItemRoom):
             print('В углу стоит чемоданчик. Там лежит',room.item)
