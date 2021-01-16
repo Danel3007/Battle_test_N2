@@ -197,10 +197,13 @@ def start():
     while True:
         room = room_map[level][room_number]
 
-        if level >= len(room_map)-1:
-            break
-        
-        passages = room_map[level + 1]
+        #if level >= len(room_map)-1:
+        #    break
+
+        if level == len(room_map)-1:
+            passages = []
+        else:
+            passages = room_map[level+1]
 
         labels = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20']
 
@@ -218,6 +221,13 @@ def start():
             print()
             room = FinBossRoom()
             result = room.battlef(game_state)
+
+            if result == "WIN":
+                print('Вы прошли игру!')
+            else:
+                print('Вы проиграли :(')
+
+            break
 
         if isinstance(room, ItemRoom):
             print('В углу стоит чемоданчик. Там лежит',room.item)
