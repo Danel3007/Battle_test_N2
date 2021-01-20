@@ -24,6 +24,11 @@ ENV PYTHONIOENCODING=utf-8
 
 WORKDIR /opt/app
 
-COPY Battle_test_N2.py /opt/app/game.py
+# COPY Battle_test_N2.py /opt/app
+# COPY FnialBoss.py /opt/app
+# COPY [ "Test SN4.py",  "/opt/app" ]
+# COPY state.py /opt/app
 
-CMD [ "gotty", "-w", "--port", "80", "python3", "game.py" ]
+COPY *.py /opt/app/
+
+CMD [ "gotty", "-w", "--port", "80", "python3", "Test SN4.py" ]
