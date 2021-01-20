@@ -188,6 +188,12 @@ def caesar(text, shift):
 
     return ciphertext
 
+def int_input():
+    text = input()
+    try:
+        return int(text)
+    except ValueError as err:
+        return 0
 
         
 def start():
@@ -483,7 +489,7 @@ def start():
             print('"-Аноним"')
             while True:
                 print('Введите код:')
-                code = int(input())
+                code = int_input()
                 if code==4810:
                     print('Правильно :D')
                     break
