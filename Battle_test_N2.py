@@ -7,7 +7,9 @@ game_state = {
   'items': [
     'Коготь Росомахи',
     'Электрошокер',
-    'Лампа'
+    'Лампа',
+    'Нож',
+    'Труба'
   ],
   'player_health':100,
   'taken':0,
@@ -18,6 +20,10 @@ game_state = {
   'meter':0,
   'wall':0,
   'sharp':0,
+  'lamp':0,
+  'knife':0,
+  'shoruken':0,
+  'pipe':0
 }
 
 mini_boss_dict = ['Дарт Вейдер(Звездные Войны)','Донки Конг','Призрак(PACMAN)','Локи(Марвел)','Майлз Эджворт(Ace Attorney)']
@@ -85,11 +91,32 @@ class BossRoom:
             print("A - Удар кулаком")
             print('В - Лечение')
             has_lamp = "Лампа" in state["items"]
+            has_pipe = "Труба" in state["items"]
+            has_knife = "Нож" in state["items"]
+            has_ballon = "Баллон" in state["items"]
+            has_headcrab = "Хедкраб" in state["items"]
+            has_shoruken = "Сюрикен" in state["items"]
+            has_claw = "Коготь" in state["items"]
+            has_blade = "Клинок" in state["items"]
             if has_lamp:
                 print("L - Ослепить босса")
             has_tazer = "Электрошокер" in state["items"]
             if has_tazer:
-                print("C - Разряд")
+                print("T - Разряд")
+            if has_pipe:
+                print("P - Труба")
+            if has_knife:
+                print("K - Ножик")
+            if has_ballon:
+                print("G - Баллончик с краской")
+            if has_headcrab:
+                print("H - Питомец-хедкраб")
+            if has_shoruken:
+                print("S - Сюрикен")
+            if has_claw:
+                print("C - Коготь Росомахи")
+            if has_blade:
+                print("I - Клинок из дамасской стали")
 
             choice = input()
             if state['scared']==1:
@@ -104,9 +131,7 @@ class BossRoom:
             if state['wall']==1:
                 print('Перед вами стена. Вы ничего не можете с этим поделать')
 
-            if state['choose']==1:
-                print('Введите номер: 1, 2, или 3')
-                choose = random.randint(1,4)
+                
             
             if choice == 'A' and not state['taken']==1 and not state['memo']==1 and not state['scared']==1 and not state['wall']==1: # удар
                 if state['choose']==1:
@@ -116,7 +141,7 @@ class BossRoom:
                     if hey==choose:
                         print('Вы ударили Локи кулаком')
                         print('Это был правильный')
-                        dmg = random.randint(13,17)                
+                        dmg = random.randint(20,51)                
                         print('Вы нанесли',dmg,'урона')
                         boss_health -= dmg
                         state['choose'] = 0
@@ -131,7 +156,7 @@ class BossRoom:
                 elif state['choose']==0:
                     print('Вы ударили босса кулаком')
                     t.sleep(1)
-                    dmg = random.randint(150,201)                
+                    dmg = random.randint(15,21)                
                     print('Вы нанесли',dmg,'урона')
                     boss_health -= dmg
                     t.sleep(1)
@@ -141,21 +166,21 @@ class BossRoom:
                 print('Вы восстановили',heal,'очка здоровья')
                 state['player_health'] += heal
                 t.sleep(1)
-            elif choice == 'C' and has_tazer and not state['taken']==1 and not state['memo']==1 and not state['wall']==1:
+            elif choice == 'T' and has_tazer and not state['taken']==1 and not state['memo']==1 and not state['wall']==1:
                 print("Вы включили электрошокер")
                 if boss=='Дарт Вейдер(Звездные Войны)':
                     print("Вы ударили босса электрошокером.")
-                    t.sleep(1)
+                    input()
                     print("Дарт Вейдер сломался...")
-                    t.sleep(5)
+                    input()
                     boss_health -= 150
 
                 elif boss=='Магнето(Люди Х)':
                     print("Вы ударили босса электрошокером.")
                     t.sleep(1)
-                    print('Магнето заземлил электричество стеной')
+                    print('Магнето заземлил электричество')
                     t.sleep(1)
-                    print('М:"Вас в школе учили, что металл хорошо проводит электричество?"')
+                    print('М:"Совет: не атакуй электричеством человека, который за секунду может сделать громоотвод"')
                     t.sleep(2)
                 else:
                     print("Вы ударили босса электрошокером")
@@ -165,12 +190,111 @@ class BossRoom:
                     boss_health -= dmg
 
             elif choice == 'L' and has_lamp and not state['taken']==1 and not state['memo']==1 and not state['wall']==1:
+                state['lamp'] += 1
+                if state['lamp']>=7:
+                    print('Батарейка села.')
+                    input()
+                    print('Вы не можете использовать лампу.')
+                    continue
+                else:
+                    print('Вы сильно посветили в босса')
+                    input()
+                    print('Босс подскользнулся и упал.')
+                    input()
+                    dmg = random.randint(4,8)
+                    print("Вы нанесли ему",dmg,"урона")
+                    boss_health -= dmg
+                    input()
+                    print('Босс не атакует')
+                    input()
+                    continue
+
+            elif choice == 'P' and has_pipe and not state['taken']==1 and not state['memo']==1 and not state['wall']==1:
+                state['pipe'] +=1
+                if state['pipe']>=7:
+                    print('Труба сломалась и вы не можете её использовать.')
+                    continue
+                else:
+                    print('Вы ударили босса трубой')
+                    input()
+                    dmg = random.randint(20,31)
+                    print("Вы нанесли",dmg,"урона")
+                    boss_health -= dmg
+                    input()
+
+            elif choice == 'S' and has_shoruken and not state['taken']==1 and not state['memo']==1 and not state['wall']==1:
+                state['shoruken'] += 1
+                if state['shoruken']>=7:
+                    print('Сюрикены кончились¯\_(ツ)_/¯')
+                    continue
+                else:
+                    print('Вы кинули в босса сюрикен')
+                    input()
+                    dmg = random.randint(15,40)
+                    print("Вы нанесли",dmg,"урона")
+                    boss_health -= dmg
+                input()
+
+            elif choice == 'K' and has_knife and not state['taken']==1 and not state['memo']==1 and not state['wall']==1:
+                state['knife'] += 1
+                if state['knife']>=7:
+                    print('Нож сточился и вы не можете его использовать')
+                    input()
+                    continue
+                else:
+                    punch = random.randint(10,30)
+                    if punch==28:
+                        print('Двадцать восемь ударов ножом!')
+                        input()
+                        print('Ты действовал наверняка, да?!')
+                        input()
+                        print('Это была ненависть?!')
+                        input()
+                        print('Гнев?!')
+                        input()
+                        print('Он был в крови!')
+                        input()
+                        print('Умолял о пощаде!')
+                        input()
+                        print('Но ты снова, и снова наносил ему удары!')
+                    else:
+                        print('Вы ударили босса ножом',punch,'раз.')
+                    dmg=0
+                    for i in range(1,punch+1):
+                        h = random.randint(1,3)
+                        dmg = dmg+h
+                    print("Вы нанесли",dmg,"урона")
+                    boss_health -= dmg
+                input()
+
+            elif choice == 'G' and has_ballon and not state['taken']==1 and not state['memo']==1 and not state['wall']==1:
+                state['ballon'] += 1
+                if state['ballon']>=7:
+                    print('Краска в баллончике кончилась')
+                    continue
+                else:
+                    print('Вы побрызгали в босса краской')
+                    input()
+                    rand = random.randint(1,8)
+                    location_dict = ['С потолка свалился ','Из стены вылез ','Через дверь вышел ','Сзади телепортировался ','На самолете прилетел ']
+                    char_dict = ['слон ','Starship SN9 ','Микки Маус ','Диаволо ','грустный смайлик ','Пушкин ']
+                    act_dict = ['и кинул в босса камень, ','и взорвался, ','и крикнул "СВОБОДУ ПОПУГАЯМ!", ','и прыгнул на босса, ','и ударил босса, ']
+                    fin_dict = ['']
+                    if rand==1:
+                        print('')
+                    dmg = random.randint(10,20)
+                    print("Вы нанесли",dmg,"урона")
+                    boss_health -= dmg
+                    input()
+
+            elif choice == 'H' and has_headcrab and not state['taken']==1 and not state['memo']==1 and not state['wall']==1:
                 print('Вы ослепили босса')
-                print('Босс не атакует')
-                continue
+                input()
+                dmg = random.randint(15,51)
+                print("Вы нанесли",dmg,"урона")
+                boss_health -= dmg
+                input()
                 
-            t.sleep(1)
-            print("")
             state['scared'] = 0
             state['memo'] = 0
             state['taken'] = 0
@@ -281,7 +405,6 @@ class BossRoom:
                 input()
                 printEm('Вы решили тихонько покинуть спор')
                 input()
-                print("")
                 
             def vader_turn():
                 if state['charge']==1:
@@ -475,7 +598,8 @@ class BossRoom:
                     t.sleep(3)
                     printEm('На следующий день')
                     trial()
-                    boss_health -= 150
+                    dmg = 150
+                    boss_health -= dmg
                
                 choice = random.choice(miles_attacks)
                 
