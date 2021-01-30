@@ -24,11 +24,7 @@ input()
 
 game_state = {
   'items':[
-    'Коготь Росомахи',
-    'Электрошокер',
-    'Лампа',
-    'Нож',
-    'Труба'
+
   ],
   'player_health':100,
   'taken':0,
@@ -42,7 +38,9 @@ game_state = {
   'lamp':0,
   'knife':0,
   'shoruken':0,
-  'pipe':0
+  'pipe':0,
+  'crab':0,
+  'ballon':0
 }
 
 coffee = 0
@@ -94,7 +92,7 @@ class MiniBossRoom:
         self.passage = passage
 
 lamp_dict = ["лампа.","неоновая лампа.","подсвечник.","диско-шар.",'хэллоуинская тыква.','стробоскоп.','люстра.','банка со светлячками.']
-itm_dict = ["лампа.","труба.","ножик.","газовый баллон.","питомец-хедкраб.",'сюрикен.','бумеранг.','коготь Росомахи.','клинок из дамасской стали.']
+itm_dict = ["лампа.","труба.","ножик.","газовый баллон.","питомец-хедкраб.",'сюрикен.']
 pass1_dict = ["ведет средневековый туннель","ведет лестница вверх.","ведет горка с лестницей.","ведет велодорожка."]
 mini_boss_dict = ['Дарт Вейдер(Звездные Войны)','Донки Конг','Призрак(PACMAN)','Локи(Марвел)','Майлз Эджуорт(Ace Attorney)']
 final_boss_dict = ['Дарт Сидиус(Звездные Войны)','Санс(Undertale)']
@@ -219,7 +217,10 @@ def start():
 
         if isinstance(room, StartRoom):
             print('Вы просыпаетесь в какой-то комнате. Вам становится немного не по себе.')
+            input()
             print('Вы видите сумку. В сумке лежит',room.item)
+            game_state['items'].append(room.item)
+            input()
             print('Вы встаете и осматриваете комнату. Серые стены, на потолке висит',room.lamp)
 
         if isinstance(room, MiniBossRoom):
@@ -240,7 +241,13 @@ def start():
             break
 
         if isinstance(room, ItemRoom):
-            print('В углу стоит чемоданчик. Там лежит',room.item)
+            while True:
+                if room.item not in game_state['items']:
+                    game_state['items'].append(room.item)
+                    print('В углу стоит чемоданчик. Там лежит',room.item)
+                    break
+                else:
+                    continue
 
 
         if isinstance(room, Room):
@@ -251,10 +258,15 @@ def start():
         if isinstance(room, TestRoom3):
             global counter
             print('Вы входите в желтую и просторную комнату')
+            input()
             print('Вы видите записку (да ладно!): "Код состоит из четырех цифр и спрятан в комнате."')
+            input()
             print('"Удачи :D"')
+            input()
             print('"Аноним III"')
+            input()
             print('Когда уже закончатся эти анонимы?')
+            input()
             while True:
                 global counter
                 print('Что будете делать?')
@@ -267,7 +279,9 @@ def start():
                 if choice=='A':
                     while True:
                         print('Вы смотрите на стену справа')
+                        input()
                         print('Вы видите 4 синих книги.')
+                        input()
                         print('1: Пролистать первую')
                         print('2: Пролистать вторую')
                         print('3: Пролистать третью')
@@ -276,19 +290,27 @@ def start():
                         choice2 = int(input())
                         if choice2==1:
                             print('Вы пролистали книгу.')
+                            input()
                             print('Там пусто.')
+                            input()
                             continue
                         if choice2==2:
                             print('Вы пролистали книгу.')
-                            print('В ней есть надпись: "Первый Мститель"')
+                            input()
+                            print('В ней есть надпись: "Первый Мыслитель"')
+                            input()
                             continue
                         if choice2==3:
                             print('Вы пролистали книгу.')
+                            input()
                             print('В ней есть надпись: "aeiou"')
+                            input()
                             continue
                         if choice2==4:
                             print('Вы пролистали книгу.')
+                            input()
                             print('Она заполнена фразами "Lorem ipsum dolor sit amet."')
+                            input()
                             continue
                         if choice2==5:
                             break
@@ -296,7 +318,9 @@ def start():
                 if choice=='B':
                     while True:
                         print('Вы смотрите на стену слева')
+                        input()
                         print('Там висит три полки')
+                        input()
                         print('1: Посмотреть на первую полку')
                         print('2: Посмотреть на вторую полку')
                         print('3: Посмотреть на третью полку')
@@ -304,27 +328,37 @@ def start():
                         choice2 = int(input())
                         if choice2==1:
                             print('Вы посмотрели на первую полку.')
+                            input()
                             print('Там есть статуя Мыслителя.')
+                            input()
                             print('Вы присмотрелись...')
-                            print('...')
+                            input()
                             print('Он опирается на щит Капитана Америки.')
+                            input()
                             print('На щите нарисована цифра 5')
+                            input()
                             print('Эх... Искусство...')
+                            input()
                             continue
                         if choice2==2:
                             print('Вы посмотрели на вторую полку.')
+                            input()
                             print('Там есть чья-то фотография.')
-                            print('Это человек в красном жилете и белой рубашке.')
-                            print('У него странная прическа и большой браслет на левой руке.')
-                            print('А ещё он куда-то показывает. Знакомая картина...')
-                            print('Внизу написано:"Второе число - порядковый номер."')
+                            input()
+                            print('Там написано:"Второе - сколько цифр в коде."')
+                            input()
                             continue
                         if choice2==3:
                             print('Вы посмотрели на третью полку')
+                            input()
                             print('Там стоит модель фонтана в виде восьмиугольника.')
+                            input()
                             print('В центре стоит постамент со звездой, а на нем табличка.')
+                            input()
                             print('Там написано - "L is real 2401"')
+                            input()
                             print('Может это код?')
+                            input()
                             continue
                         if choice2==4:
                             break
@@ -332,30 +366,39 @@ def start():
                 if choice=='C':
                     while True:
                         print('Вы смотрите на стену спереди')
+                        input()
                         print('Вы видите дверь с замком, и две тумбы по бокам.')
+                        input()
                         print('1: Открыть первую')
                         print('2: Открыть вторую')
                         print('3: Выйти')
                         choice2 = int(input())
                         if choice2==1:
                             print('Вы подошли к тумбе слева')
+                            input()
                             print('Там две задвижки')
+                            input()
                             print('Какую откроете?')
+                            input()
                             print('1: Верхнюю')
                             print('2: Нижнюю')
                             continue
                         
                         if choice2==2:
                             print('Вы подошли к тумбе справа.')
+                            input()
                             print('Это просто деревянный куб.')
+                            input()
                             print('Сбоку наклеены стикеры:')
+                            input()
                             print('  F G H I J')
                             print('A 5 6 3 8 1')
                             print('B 0 2 8 3 3')
                             print('C 1 0 3 9 7')
                             print('D 4 5 7 2 8')
                             print('E 7 9 5 8 3')
-                            print('3:DJ')
+                            print('Третья:DJ')
+                            input()
                             continue
 
                         if choice2==3:
@@ -365,24 +408,29 @@ def start():
                     while True:
                         global counter
                         print('Вы смотрите на стену сзади')
+                        input()
                         print('Вы видите комфортное кресло.')
+                        input()
                         print('Рядом стоит тумба, а на ней кофе.')
+                        input()
                         print('1: Сесть в кресло.')
                         print('2: Назад')
                         choice2 = int(input())
                         if choice2==1:
                                 print('Вы сели в кресло')
-                                t.sleep(1)
-                                print('...')
-                                t.sleep(3)
+                                input()
                                 while True:
                                     global counter
                                     global coffee
                                     if coffee==8:
                                         print('Вы выпили весь кофе.')
+                                        input()
                                         print('На дне кружки есть надпись:')
+                                        input()
                                         print('Последняя цифра - 9')
+                                        input()
                                         print('Ну что ж, пригодится')
+                                        input()
                                     
                                     print('1: Попить кофе')
                                     print('2: Посидеть и подумать')
@@ -396,7 +444,11 @@ def start():
                                     if choice2==2:
                                         counter = 0
                                         print('Вы сели в кресло.')
+                                        input()
                                         print('Оно мягкое :D')
+                                        input()
+                                        print('Тут можно посидеть и подумать')
+                                        input()
                                         print('1:Выйти')
                                         tim = threading.Thread(target = increment)
                                         tim.start()
@@ -467,15 +519,23 @@ def start():
                     code = int(input())
                     if code==6969:
                         print('Вы ввели 6969')
+                        input()
                         print('Из замка раздался звук:')
+                        input()
                         print('"Серьёзно?"')
+                        input()
                         print('Дверь не открылась')
+                        input()
                         continue
                     if code==2401:
                         print('Вы ввели 2401.')
+                        input()
                         print('Из замка раздался звук:')
+                        input()
                         print('"Ахахах попался! Тут нет Луиджи."')
+                        input()
                         print('Дверь не открылась')
+                        input()
                         continue
                     if code==5489:
                         print('Вы ввели 5489')
@@ -487,10 +547,15 @@ def start():
                 
         if isinstance(room, TestRoom1):
             print('Вы видите кодовый замок с запиской.')
+            input()
             print('"Птоирачй эотт тксет. Елси ты пнимашоеь эотт тсект, это хшооро, вдеь он пнаодибстя при ршнееии днаонй гмовооллкои."')
+            input()
             print('"Сшлауй сдюа, зпомнаи: птяь чтреые всемоь дветяь. Сотп, это нпрьвеилнао. Пиралвньо - чытрее всомеь дястеь."')
+            input()
             print('"Удачи :D"')
+            input()
             print('"-Аноним"')
+            input()
             while True:
                 print('Введите код:')
                 code = int_input()
@@ -503,8 +568,11 @@ def start():
 
         if isinstance(room, TestRoom2):
             print('Вы видите кодовый замок (опять?) с запиской.')
+            input()
             print('"Найди знак доллара и напиши где он"')
+            input()
             print('Ниже видно вот что:')
+            input()
             print('    A B C D E F G H I J K L M N')
             print('                               ')
             print('1   8 8 8 8 8 8 8 8 8 8 8 8 8 8')
@@ -519,8 +587,11 @@ def start():
             print('10  8 8 8 8 8 8 8 8 8 8 8 $ 8 8')
             print('11  8 8 8 8 8 8 8 8 8 8 8 8 8 8')
             print('12  8 8 8 8 8 8 8 8 8 8 8 8 8 8')
+            input()
             print('"Удачи :D"')
+            input()
             print('"-Аноним II"')
+            input()
             while True:
                 print('Введите код (сначала заглавную букву, потом цифру, слитно):')
                 code = str(input())
@@ -534,14 +605,17 @@ def start():
         if isinstance(room, TestRoom4):
             n69=0
             print('Вы видите кодовый замок (да сколько можно?) с запиской.')
+            input()
             print('"aeiou"')
+            input()
             print('"Удачи :D"')
+            input()
             print('"-Аноним IV"')
+            input()
             print('И что делать?')
-            t.sleep(1)
-            print('...')
-            t.sleep(1)
+            input()
             print('Вы перевернули записку')
+            input()
             hi = 'ПЯТЬ СЕМЬ ДЕВЯТЬ ОДИН'
             yo = random.randint(1,7)
             print('Там написано: "Сдвиг - ',yo,'"')

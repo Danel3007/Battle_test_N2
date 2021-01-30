@@ -5,11 +5,7 @@ import random, os
     
 game_state = {
   'items': [
-    'Коготь Росомахи',
-    'Электрошокер',
-    'Лампа',
-    'Нож',
-    'Труба'
+
   ],
   'player_health':100,
   'taken':0,
@@ -23,7 +19,9 @@ game_state = {
   'lamp':0,
   'knife':0,
   'shoruken':0,
-  'pipe':0
+  'pipe':0,
+  'crab':0,
+  'ballon':0
 }
 
 mini_boss_dict = ['Дарт Вейдер(Звездные Войны)','Донки Конг','Призрак(PACMAN)','Локи(Марвел)','Майлз Эджворт(Ace Attorney)']
@@ -90,14 +88,12 @@ class BossRoom:
             # Ход игрока
             print("A - Удар кулаком")
             print('В - Лечение')
-            has_lamp = "Лампа" in state["items"]
-            has_pipe = "Труба" in state["items"]
-            has_knife = "Нож" in state["items"]
-            has_ballon = "Баллон" in state["items"]
-            has_headcrab = "Хедкраб" in state["items"]
-            has_shoruken = "Сюрикен" in state["items"]
-            has_claw = "Коготь" in state["items"]
-            has_blade = "Клинок" in state["items"]
+            has_lamp = "лампа." in state["items"]
+            has_pipe = "труба." in state["items"]
+            has_knife = "ножик." in state["items"]
+            has_ballon = "газовый баллон." in state["items"]
+            has_headcrab = "питомец-хедкраб." in state["items"]
+            has_shoruken = "сюрикен." in state["items"]
             if has_lamp:
                 print("L - Ослепить босса")
             has_tazer = "Электрошокер" in state["items"]
@@ -113,10 +109,6 @@ class BossRoom:
                 print("H - Питомец-хедкраб")
             if has_shoruken:
                 print("S - Сюрикен")
-            if has_claw:
-                print("C - Коготь Росомахи")
-            if has_blade:
-                print("I - Клинок из дамасской стали")
 
             choice = input()
             if state['scared']==1:
@@ -166,7 +158,7 @@ class BossRoom:
                 print('Вы восстановили',heal,'очка здоровья')
                 state['player_health'] += heal
                 t.sleep(1)
-            elif choice == 'T' and has_tazer and not state['taken']==1 and not state['memo']==1 and not state['wall']==1:
+            elif choice == 'T' and has_tazer and not state['taken']==1 and not state['memo']==1 and not state['wall']==1 and not state['scared']==1:
                 print("Вы включили электрошокер")
                 if boss=='Дарт Вейдер(Звездные Войны)':
                     print("Вы ударили босса электрошокером.")
@@ -189,7 +181,7 @@ class BossRoom:
                     print("Вы нанесли",dmg,"урона")
                     boss_health -= dmg
 
-            elif choice == 'L' and has_lamp and not state['taken']==1 and not state['memo']==1 and not state['wall']==1:
+            elif choice == 'L' and has_lamp and not state['taken']==1 and not state['memo']==1 and not state['wall']==1 and not state['scared']==1:
                 state['lamp'] += 1
                 if state['lamp']>=7:
                     print('Батарейка села.')
@@ -209,7 +201,7 @@ class BossRoom:
                     input()
                     continue
 
-            elif choice == 'P' and has_pipe and not state['taken']==1 and not state['memo']==1 and not state['wall']==1:
+            elif choice == 'P' and has_pipe and not state['taken']==1 and not state['memo']==1 and not state['wall']==1 and not state['scared']==1:
                 state['pipe'] +=1
                 if state['pipe']>=7:
                     print('Труба сломалась и вы не можете её использовать.')
@@ -222,7 +214,7 @@ class BossRoom:
                     boss_health -= dmg
                     input()
 
-            elif choice == 'S' and has_shoruken and not state['taken']==1 and not state['memo']==1 and not state['wall']==1:
+            elif choice == 'S' and has_shoruken and not state['taken']==1 and not state['memo']==1 and not state['wall']==1 and not state['scared']==1:
                 state['shoruken'] += 1
                 if state['shoruken']>=7:
                     print('Сюрикены кончились¯\_(ツ)_/¯')
@@ -235,7 +227,7 @@ class BossRoom:
                     boss_health -= dmg
                 input()
 
-            elif choice == 'K' and has_knife and not state['taken']==1 and not state['memo']==1 and not state['wall']==1:
+            elif choice == 'K' and has_knife and not state['taken']==1 and not state['memo']==1 and not state['wall']==1 and not state['scared']==1:
                 state['knife'] += 1
                 if state['knife']>=7:
                     print('Нож сточился и вы не можете его использовать')
@@ -267,7 +259,7 @@ class BossRoom:
                     boss_health -= dmg
                 input()
 
-            elif choice == 'G' and has_ballon and not state['taken']==1 and not state['memo']==1 and not state['wall']==1:
+            elif choice == 'G' and has_ballon and not state['taken']==1 and not state['memo']==1 and not state['wall']==1 and not state['scared']==1:
                 state['ballon'] += 1
                 if state['ballon']>=7:
                     print('Краска в баллончике кончилась')
@@ -275,26 +267,57 @@ class BossRoom:
                 else:
                     print('Вы побрызгали в босса краской')
                     input()
-                    rand = random.randint(1,8)
                     location_dict = ['С потолка свалился ','Из стены вылез ','Через дверь вышел ','Сзади телепортировался ','На самолете прилетел ']
-                    char_dict = ['слон ','Starship SN9 ','Микки Маус ','Диаволо ','грустный смайлик ','Пушкин ']
-                    act_dict = ['и кинул в босса камень, ','и взорвался, ','и крикнул "СВОБОДУ ПОПУГАЯМ!", ','и прыгнул на босса, ','и ударил босса, ']
-                    fin_dict = ['']
-                    if rand==1:
-                        print('')
-                    dmg = random.randint(10,20)
+                    char_dict = ['слон ','Starship SN9 ','Микки Маус ','Диаволо ','грустный смайлик ','Пушкин ','Мейс Винду ','Пьюдипай ','Моршу ','Т-800 ']
+                    act_dict = ['и кинул в босса камень, ','и сыграл на трубе ','и крикнул "СВОБОДУ ПОПУГАЯМ!", ','и прыгнул на босса, ','и ударил босса, ']
+                    fin_dict = ['после чего сбежал.','после чего заглючил в четвертое измерение.','после чего умер.','после чего взорвался.','после чего его увезли.']
+                    print(random.choice(location_dict),random.choice(char_dict),random.choice(act_dict),random.choice(fin_dict))
+                    input()
+                    dmg = random.randint(10,250)
                     print("Вы нанесли",dmg,"урона")
                     boss_health -= dmg
                     input()
 
-            elif choice == 'H' and has_headcrab and not state['taken']==1 and not state['memo']==1 and not state['wall']==1:
-                print('Вы ослепили босса')
-                input()
-                dmg = random.randint(15,51)
-                print("Вы нанесли",dmg,"урона")
-                boss_health -= dmg
-                input()
-                
+            elif choice == 'H' and has_headcrab and not state['taken']==1 and not state['memo']==1 and not state['wall']==1 and not state['scared']==1:
+                state['crab'] += 1
+                if state['crab']>=7:
+                    print('Хедкраб устал')
+                    continue
+                if state['crab']==1:
+                    print('Вы кинули в босса хедкраба')
+                    input()
+                    print(".".format(state['player_health']),end="", flush=True)
+                    t.sleep(1)
+                    print(".".format(state['player_health']),end="", flush=True)
+                    t.sleep(1)
+                    print(".".format(state['player_health']),end="", flush=True)
+                    t.sleep(1)
+                    print(".".format(state['player_health']),end="", flush=True)
+                    t.sleep(1)
+                    print(".".format(state['player_health']),end="", flush=True)
+                    t.sleep(1)
+                    print(".")
+                    t.sleep(1)
+                    print('Короче там такое произошло...')
+                    input()
+                    print('Если я это скажу игре поднимут рейтинг до 18+')
+                    input()
+                    print('Вообщем вы поняли какая фигня там творилась...')
+                    input()
+                    dmg = random.randint(15,40)
+                    print("Вы нанесли",dmg,"урона")
+                    boss_health -= dmg
+                    input()
+                else:
+                    print('Вы кинули в босса хедкраба')
+                    input()
+                    print('Ну вы дальше знаете')
+                    input()
+                    dmg = random.randint(15,40)
+                    print("Вы нанесли",dmg,"урона")
+                    boss_health -= dmg
+                    input()
+                    
             state['scared'] = 0
             state['memo'] = 0
             state['taken'] = 0
