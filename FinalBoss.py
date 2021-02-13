@@ -10,10 +10,20 @@ game_state = {
     'Лампа'
   ],
   'player_health':200,
+  'lamp':0,
+  'knife':0,
+  'shoruken':0,
+  'pipe':0,
+  'crab':0,
+  'ballon':0,
+  'lmao':0
 }
 
-final_boss_dict = ['Дарт Сидиус(Звездные Войны)','Санс(Undertale)']
-sidious_attacks = ['Молния Силы','Армия красных штурмовиков','Лазер Звезды Смерти','i AM The Senate','Экзорцизм']
+#https://youtu.be/ub82Xb1C8os
+
+final_boss_dict = ['Дарт Сидиус(Звездные Войны)','Санс(Undertale)','Дио Брандо(ДжоДжо Часть 3)']
+sidious_attacks = ['Молния Силы','Армия красных штурмовиков','Лазер Звезды Смерти','I AM The Senate','Экзорцизм']
+dio_attacks = ['MUDA MUDA MUDA','RODA RORA DA','WRYYYYYYYYY','Ножи','Армия зомби'] 
 
 evade = 0
 
@@ -144,12 +154,15 @@ class FinBossRoom:
                 choice = random.choice(sidious_attacks)
                 if choice == 'Молния Силы':
                     print('Дарт Сидиус использовал Молнию Силы.')
+                    input()
                     dmg = random.randint(40,50)
                     print('Вам нанесли', dmg, 'урона')
+                    input()
                     state['player_health'] -= dmg
                     
                 if choice == 'Армия красных штурмовиков':
                     print('Дарт Сидиус взмахнул рукой.')
+                    input()
                     number = random.randint(1,100)
                     print('Прибежали',number,'красных штурмовиков')
                     for i in range(1, number):
@@ -157,31 +170,37 @@ class FinBossRoom:
                         state['player_health'] -= 1
                         t.sleep(0.1)
                     print('Все убежали обратно')
-                    t.sleep(0.5)
+                    input()
                         
                 if choice == 'Лазер Звезды Смерти':
                     print('Дарт Сидиус достал контроллер из кармана')
+                    input()
                     print('вверх вверх вниз вниз влево вправо влево вправо B A START')
-                    t.sleep(2)
+                    input()
                     print('На вас обрушился лазер Звезды Смерти')
+                    input()
                     dmg = random.randint(50,80)
                     print('Вам нанесли', dmg,'урона')
+                    input()
                     state['player_health'] -= dmg
                     
                 if choice == 'i AM The Senate':
                     print('Дарт Сидиус активировал световой меч и, крутясь и крича, прыгнул в вашу сторону')
+                    input()
                     dmg = random.randint(10,20)
                     print('Вам нанесли', dmg,'урона')
+                    input()
                     state['player_health'] -= dmg
 
                 if choice == 'Экзорцизм':
                     print('Сидиус:"⚐♒︎⬧♓⧫♒︎ ⬧◻♓❒♓⧫⬧✏"')
-                    t.sleep(1.5)
+                    input()
                     print('Сидиус:"✌♓♎︎ ❍♏︎ ♓■ ⧫♒♏︎ ♐♓♑♒⧫︎ ♋♑♋♓■⬧⧫︎ ⧫♒♋⧫︎ ♐□□●✏"')
-                    t.sleep(1.5)
+                    input()
                     print('Сидиус:"☼♏❍□❖♏︎ ♒♓❍︎ ♐❒□❍︎ ⧫♒♏♏⌧♓⬧⧫♏■♍♏✏"')
-                    t.sleep(1.5)
+                    input()
                     print('Вам становится не по себе')
+                    input()
                     dmg = random.randint(40,60)
                     state['player_health'] -= dmg
 
@@ -320,11 +339,57 @@ class FinBossRoom:
                         print('Вам нанесли', dmg, 'урона')
                         state['player_health'] -= dmg
 
+            def dio_turn():
+                if state['lmao'] >= 1:
+                    state['lmao']+=1
+                    print('Дио:"え？"')
+                    print('Субтитры:"Хм?"')
+                    input()
+                    print('Дио:"あえて私と向き合うもう一人の愚か者、ディオ？"')
+                    print('Субтитры:"Очередной глупец, который посмел выйти против меня?"')
+                    input()
+                    print('Дио:"それは問題ではありません。"')
+                    print('Субтитры:"Это бессмысленно"')
+                    input()
+                    print('Дио:"「ザ・ワルド」の能力で、あなたを全滅させよう！"')
+                    print('Субтитры:"С помощью「The World」, я тебя уничтожу!"')
+                    input()
+                    print('Дио:"ZA WARUDO!"')
+                    print('Субтитры:"ну вы поняли"')
+                    input()
+                    print('...')
+                    input()
+                    print('...')
+                    input()
+                    print('...')
+                    input()
+                    print('Ничего не произошло')
+                    input()
+                    print('...')
+                    input()
+                    print('Ах да, у вас же нет стенда.')
+                    input()
+                    print('Для продвижения сюжета притворимся, что у вас тоже есть стенд :D')
+                    input()
+                    print('Мастер стенда: Протагонист')
+                    print('Название стенда: Buttercup')
+                    print('Сила:A')
+                    print('Скорость:C')
+                    print('Размах:C(5 метров)')
+                    print('Прочность:A')
+                    print('Точность:C')
+                    print('Потенциал развития: Неизвестен')
+                choice = random.choice(sidious_attacks)
+                
+
             if boss=='Дарт Сидиус(Звездные Войны)':
                 sidious_turn()
                 
             elif boss=='Санс(Undertale)':
                 sans_turn()
+
+            elif boss=='Дио Брандо(ДжоДжо Часть 3)':
+                dio_turn()
                 
             if state['player_health']>=200:
                 state['player_health']=200
