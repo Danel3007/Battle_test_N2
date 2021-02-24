@@ -13,6 +13,40 @@ from state import read_state, write_state
 from Battle_test_N2 import BossRoom
 from FinalBoss import FinBossRoom
 
+import blessed
+term = blessed.Terminal()
+
+
+def input_choice(choices):
+    with term.cbreak(), term.hidden_cursor():
+        choice = 0
+
+        loc = term.height - len(choices) - 1
+        for i in range(len(choices)):
+            print()
+
+        while True:
+            #print(f"{term.home}{term.clear}")
+           
+            for i in range(len(choices)):
+                with term.location(0, loc + i):
+                    c = choice % len(choices)
+                    if c == i:
+                        print(f"{term.underline}{choices[i]}{term.no_underline}", end='')
+                    else:
+                        print(f"{choices[i]}", end='')
+            
+            val = term.inkey()
+
+            if val.name == 'KEY_DOWN':
+                choice += 1
+            elif val.name == 'KEY_UP':
+                choice -= 1
+            elif val.name == "KEY_ENTER":
+                break
+
+        return choice % len(choices)
+
 print('                 ПРОЧИТАЙТЕ                 ')
 print('         Если вы набираете что либо        ')
 print('      то убедитесь что вы набрали всё,   ')
@@ -26,6 +60,7 @@ game_state = {
   'items':[
 
   ],
+  'trial': 0,
   'player_health':100,
   'taken':0,
   'charge':0,
@@ -270,13 +305,15 @@ def start():
             while True:
                 global counter
                 print('Что будете делать?')
-                print('A: Посмотреть на стену справа')
-                print('B: Посмотреть на стену слева')
-                print('C: Посмотреть на стену спереди')
-                print('D: Посмотреть на стену сзади')
-                print('E: Ввести код')
-                choice = str(input())
-                if choice=='A':
+                choice = input_choice([
+                    'A: Посмотреть на стену справа',
+                    'B: Посмотреть на стену слева',
+                    'C: Посмотреть на стену спереди',
+                    'D: Посмотреть на стену сзади',
+                    'E: Ввести код',
+                ])
+                
+                if choice==0:
                     while True:
                         print('Вы смотрите на стену справа')
                         input()
@@ -315,7 +352,7 @@ def start():
                         if choice2==5:
                             break
 
-                if choice=='B':
+                if choice==1:
                     while True:
                         print('Вы смотрите на стену слева')
                         input()
@@ -363,7 +400,7 @@ def start():
                         if choice2==4:
                             break
 
-                if choice=='C':
+                if choice==2:
                     while True:
                         print('Вы смотрите на стену спереди')
                         input()
@@ -404,7 +441,7 @@ def start():
                         if choice2==3:
                             break
 
-                if choice=='D':
+                if choice==3:
                     while True:
                         global counter
                         print('Вы смотрите на стену сзади')
@@ -514,7 +551,7 @@ def start():
                             break
                     
                 
-                if choice=='E':
+                if choice==4:
                     print('Введите код:')
                     code = int(input())
                     if code==6969:

@@ -692,19 +692,19 @@ class BossRoom:
                 choice = random.choice(magneto_attacks)                    
                                     
                 if choice == '':
-                    
+                    pass
                     
                 if choice == '':
-                    
+                    pass
                         
                 if choice == '':
-                    
+                    pass
                     
                 if choice == '':
-                    
+                    pass
 
                 if choice=='':
-                    
+                    pass
 
                     
 
