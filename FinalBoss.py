@@ -5,9 +5,7 @@ import random, os
     
 game_state = {
   'items': [
-    'Коготь Росомахи',
-    'Электрошокер',
-    'Лампа'
+
   ],
   'player_health':200,
   'lamp':0,
@@ -16,14 +14,14 @@ game_state = {
   'pipe':0,
   'crab':0,
   'ballon':0,
-  'lmao':0
+  'lmao':0,
+  'potions':0
 }
 
 #https://youtu.be/ub82Xb1C8os
 
 final_boss_dict = ['Дарт Сидиус(Звездные Войны)','Санс(Undertale)','Дио Брандо(ДжоДжо Часть 3)']
-sidious_attacks = ['Молния Силы','Армия красных штурмовиков','Лазер Звезды Смерти','I AM The Senate','Экзорцизм']
-dio_attacks = ['MUDA MUDA MUDA','RODA RORA DA','WRYYYYYYYYY','Ножи','Армия зомби'] 
+dio_attacks = ['MUDA MUDA MUDA','RODA RORA DA','WRYYYYYYYYY','Армия зомби','Лазерные глаза'] 
 
 evade = 0
 
@@ -75,9 +73,8 @@ class FinBossRoom:
                 print('Вы нанесли',dmg,'урона')
                 boss_health -= dmg
                 t.sleep(1)
+            
             elif choice == 'A' and boss=='Санс(Undertale)':
-                print('Вы ударили босса кулаком')
-                t.sleep(1)
                 if evade == 7:
                     print('Уф...')
                     input()
@@ -120,19 +117,17 @@ class FinBossRoom:
                     print('Санс увернулся')
                     
             elif choice == 'B': # зелья
-                heal = random.randint(70,200) 
-                print('Вы восстановили',heal,'очка здоровья')
-                state['player_health'] += heal
-                t.sleep(1)
-                
-            elif choice == 'L' and has_lamp:
-                print('Вы ослепили босса')
-                print('Босс подскользнулся и упал')
-                dmg = random(randint(6,15))
-                print('Вы нанесли',dmg,'урона')
-                boss_health -= dmg
-                t.sleep(1)
-                continue
+                if state['potions'] <= 1:
+                    print('Вы выпили зелье лечения.')
+                    input()
+                    heal = random.randint(50,150)
+                    print('Вы восстановили',heal,'здоровья')
+                    state['player_health'] += heal
+                    state['potions'] -= 1
+                    input()
+                else:
+                    print('Зелья кончились ¯\_(ツ)_/¯')
+                    continue
                 
             t.sleep(1)
             print("")
@@ -149,60 +144,6 @@ class FinBossRoom:
                 print()
                 
             # Ход босса
-
-            def sidious_turn():                    
-                choice = random.choice(sidious_attacks)
-                if choice == 'Молния Силы':
-                    print('Дарт Сидиус использовал Молнию Силы.')
-                    input()
-                    dmg = random.randint(40,50)
-                    print('Вам нанесли', dmg, 'урона')
-                    input()
-                    state['player_health'] -= dmg
-                    
-                if choice == 'Армия красных штурмовиков':
-                    print('Дарт Сидиус взмахнул рукой.')
-                    input()
-                    number = random.randint(1,100)
-                    print('Прибежали',number,'красных штурмовиков')
-                    for i in range(1, number):
-                        print('Вам нанесли 1 урона')
-                        state['player_health'] -= 1
-                        t.sleep(0.1)
-                    print('Все убежали обратно')
-                    input()
-                        
-                if choice == 'Лазер Звезды Смерти':
-                    print('Дарт Сидиус достал контроллер из кармана')
-                    input()
-                    print('вверх вверх вниз вниз влево вправо влево вправо B A START')
-                    input()
-                    print('На вас обрушился лазер Звезды Смерти')
-                    input()
-                    dmg = random.randint(50,80)
-                    print('Вам нанесли', dmg,'урона')
-                    input()
-                    state['player_health'] -= dmg
-                    
-                if choice == 'i AM The Senate':
-                    print('Дарт Сидиус активировал световой меч и, крутясь и крича, прыгнул в вашу сторону')
-                    input()
-                    dmg = random.randint(10,20)
-                    print('Вам нанесли', dmg,'урона')
-                    input()
-                    state['player_health'] -= dmg
-
-                if choice == 'Экзорцизм':
-                    print('Сидиус:"⚐♒︎⬧♓⧫♒︎ ⬧◻♓❒♓⧫⬧✏"')
-                    input()
-                    print('Сидиус:"✌♓♎︎ ❍♏︎ ♓■ ⧫♒♏︎ ♐♓♑♒⧫︎ ♋♑♋♓■⬧⧫︎ ⧫♒♋⧫︎ ♐□□●✏"')
-                    input()
-                    print('Сидиус:"☼♏❍□❖♏︎ ♒♓❍︎ ♐❒□❍︎ ⧫♒♏♏⌧♓⬧⧫♏■♍♏✏"')
-                    input()
-                    print('Вам становится не по себе')
-                    input()
-                    dmg = random.randint(40,60)
-                    state['player_health'] -= dmg
 
             def sans_turn():
                 global evade
@@ -340,73 +281,93 @@ class FinBossRoom:
                         state['player_health'] -= dmg
 
             def dio_turn():
-                if state['lmao'] >= 1:
-                    state['lmao']+=1
-                    print('Дио:"え？"')
-                    print('Субтитры:"Хм?"')
-                    input()
-                    print('Дио:"あえて私と向き合うもう一人の愚か者、ディオ？"')
-                    print('Субтитры:"Очередной глупец, который посмел выйти против меня?"')
-                    input()
-                    print('Дио:"それは問題ではありません。"')
-                    print('Субтитры:"Это бессмысленно"')
-                    input()
-                    print('Дио:"「ザ・ワルド」の能力で、あなたを全滅させよう！"')
-                    print('Субтитры:"С помощью「The World」, я тебя уничтожу!"')
-                    input()
-                    print('Дио:"ZA WARUDO!"')
-                    print('Субтитры:"МИР!"')
-                    input()
-                    print('...')
-                    input()
-                    print('...')
-                    input()
-                    print('...')
-                    input()
-                    print('Ничего не произошло')
-                    input()
-                    print('...')
-                    input()
-                    print('Ах да, у вас же нет стенда.')
-                    input()
-                    print('Для продвижения сюжета притворимся, что у вас есть СтрелаTM и вы пронзили ей себя')
-                    input()
-                    print('Поздравляем, у вас теперь стенд.')
-                    input()
-                    print('Мастер стенда: Протагонист')
-                    print('Название стенда: Megalo')
-                    print('Сила:A')
-                    print('Скорость:B')
-                    print('Размах:C(10 метров)')
-                    print('Прочность:B')
-                    print('Точность:D')
-                    print('Потенциал развития: A')
-                    input()
-                    print('Способность:Изготовление любого вида оружия')
-                    print('Пользователь может создать любой вид оружия из ничего.')
-                    print('Однако, пользователь не может контролировать какое оружие')
-                    print('он создает, и поэтому оружие генерируется случайно.')
-                    print('Оружие могут использовать даже люди, не имеющие стенды.')
-                    print()
-                    input()
-                    print('Дио:"ああ、あなたは今スタンドを持っていますか？"')
-                    print('Субтитры:"Хм, значит теперь у тебя есть Стенд?"')
-                    input()
-                    print('Дио:"この戦いはもうすぐ面白くなります..."')
-                    print('Субтитры:"Эта битва обещает быть интересной."')
-                    input()
-                    print('Дио:"しかし、あなたの弱いスタンドはまだ「世界」に匹敵しません"')
-                    print('Субтитры:"Но твой хилый стенд все равно не сравнится с мощью 「The World」"')
-                    input()
-                    print('Дио:"この戦いを始めましょう！"')
-                    print('Субтитры:"Да начнется же битва!"')
                 choice = random.choice(dio_attacks)
-                
+                if choice == 'MUDA MUDA MUDA':
+                    print('Дио взмахнул рукой.')
+                    input()
+                    print('Дио:"私のシグネチャーアタックを使用する時が来ました！"')
+                    print('Субтитры:"Пора использовать мою основную атаку!"')
+                    input()
+                    print('Дио приблизился на 2 метра и начал кидать ножи.')
+                    input()
+                    print('Дио:"MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA"')
+                    print('Я думаю в переводе это не нуждается :/')
+                    input()
+                    print('В вас попали ножики')
+                    input()
+                    for i in range(1,random.randint(5,9)):
+                        dmg = random.randint(10,15)
+                        print('Вам нанесли', dmg, 'урона')
+                        state['player_health'] -= dmg
+                    input()
+                    
+                if choice=='WRYYYYYYYYY':
+                    print('Дио крикнул: "WRYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"')
+                    input()
+                    print('Вы оглохли.')
+                    input()
+                    dmg = random.randint(20,25)
+                    print('Вам нанесли', dmg, 'урона')
+                    state['player_health'] -= dmg
+                    
+                if choice=='Армия зомби':
+                    print('Дио:"ゾンビを招待する時が来たと思います"')
+                    print('Субтитры:"По-моему уже пора бы пригласить сюда зомби."')
+                    input()
+                    print('Дио махнул рукой')
+                    input()
+                    print('Прибежала армия зомби и начала вас атаковать.')
+                    for i in range(1,random.randint(20,50)):
+                        dmg = random.randint(1,3)
+                        print('Зомби вас ударил, нанес', dmg, 'урона и убежал.')
+                        state['player_health'] -= dmg
+                    input()
 
-            if boss=='Дарт Сидиус(Звездные Войны)':
-                sidious_turn()
+                if choice == 'Лазерные глаза':
+                    print('Дио:"吸血鬼のエッセンスを撃ちます！"')
+                    print('Субтитры:"Я стрельну в тебя вампирской эссенцией!"')
+                    input()
+                    print('Из глаз Дио вырвались розовые струйки.')
+                    input()
+                    dmg = random.randint(30,40)
+                    print('Вам нанесли',dmg,'урона')
+                    state['player_health'] -= dmg
+                    input()
+
+                if choice == 'RODA RORA DA':
+                    print('Дио взлетел.')
+                    input()
+                    print('Сверху показалась какая-то тень.')
+                    input()
+                    print('Вы подняли голову.')
+                    input()
+                    print('Это Дио, держащий каток и кричащий "RODA RORA DAAAAAAAAAAAAAAAAAAAAAA!!!"')
+                    input()
+                    print('BBBBBBBBBBBBBBBBBB             OOOOOOOOO               OOOOOOOOO          MMMMMMMM               MMMMMMMM')
+                    print('B:::::::::::::::::B          OO:::::::::OO           OO:::::::::OO        M:::::::M             M:::::::M')
+                    print('B::::::BBBBBB::::::B       OO:::::::::::::OO       OO:::::::::::::OO      M::::::::M           M::::::::M')
+                    print('B::::::B     B::::::B     O:::::::OOO:::::::O     O:::::::OOO:::::::O     M:::::::::M         M:::::::::M')
+                    print('B::::::B     B::::::B     O::::::O   O::::::O     O::::::O   O::::::O     M::::::::::M       M::::::::::M')
+                    print('B::::::B     B::::::B     O:::::O     O:::::O     O:::::O     O:::::O     M:::::::::::M     M:::::::::::M')
+                    print('B::::::BBBBBB::::::B      O:::::O     O:::::O     O:::::O     O:::::O     M:::::::M::::M   M::::M:::::::M')
+                    print('B::::::::::::::::BB       O:::::O     O:::::O     O:::::O     O:::::O     M::::::M M::::M M::::M M::::::M')
+                    print('B::::::BBBBBB::::::B      O:::::O     O:::::O     O:::::O     O:::::O     M::::::M  M::::M::::M  M::::::M')
+                    print('B::::::B     B::::::B     O:::::O     O:::::O     O:::::O     O:::::O     M::::::M   M:::::::M   M::::::M')
+                    print('B::::::B     B::::::B     O:::::O     O:::::O     O:::::O     O:::::O     M::::::M    M:::::M    M::::::M')
+                    print('B::::::B     B::::::B     O::::::O   O::::::O     O::::::O   O::::::O     M::::::M     MMMMM     M::::::M')
+                    print('B::::::BBBBBB:::::::B     O:::::::OOO:::::::O     O:::::::OOO:::::::O     M::::::M               M::::::M')
+                    print('B::::::::::::::::::B       OO:::::::::::::OO       OO:::::::::::::OO      M::::::M               M::::::M')
+                    print('B:::::::::::::::::B          OO:::::::::OO           OO:::::::::OO        M::::::M               M::::::M')
+                    print('BBBBBBBBBBBBBBBBBB             OOOOOOOOO               OOOOOOOOO          MMMMMMMM               MMMMMMMM')
+                    input()
+                    dmg = random.randint(60,90)
+                    print('Вам нанесли',dmg,'урона')
+                    state['player_health'] -= dmg
+                    input()
+                                                                                                        
                 
-            elif boss=='Санс(Undertale)':
+                
+            if boss=='Санс(Undertale)':
                 sans_turn()
 
             elif boss=='Дио Брандо(ДжоДжо Часть 3)':

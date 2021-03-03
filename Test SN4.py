@@ -75,7 +75,8 @@ game_state = {
   'shoruken':0,
   'pipe':0,
   'crab':0,
-  'ballon':0
+  'ballon':0,
+  'potions':0
 }
 
 coffee = 0
@@ -283,6 +284,8 @@ def start():
                     break
                 else:
                     continue
+            print('Также там лежат 5 зелий лечения.')
+            state['potions'] += 5
 
 
         if isinstance(room, Room):
@@ -305,15 +308,14 @@ def start():
             while True:
                 global counter
                 print('Что будете делать?')
-                choice = input_choice([
-                    'A: Посмотреть на стену справа',
-                    'B: Посмотреть на стену слева',
-                    'C: Посмотреть на стену спереди',
-                    'D: Посмотреть на стену сзади',
-                    'E: Ввести код',
-                ])
+                print('A: Посмотреть на стену справа')
+                print('B: Посмотреть на стену слева')
+                print('C: Посмотреть на стену спереди')
+                print('D: Посмотреть на стену сзади')
+                print('E: Ввести код')
+                choice = str(input())
                 
-                if choice==0:
+                if choice=='A':
                     while True:
                         print('Вы смотрите на стену справа')
                         input()
@@ -352,7 +354,7 @@ def start():
                         if choice2==5:
                             break
 
-                if choice==1:
+                if choice=='B':
                     while True:
                         print('Вы смотрите на стену слева')
                         input()
@@ -400,7 +402,7 @@ def start():
                         if choice2==4:
                             break
 
-                if choice==2:
+                if choice=='C':
                     while True:
                         print('Вы смотрите на стену спереди')
                         input()
@@ -441,7 +443,7 @@ def start():
                         if choice2==3:
                             break
 
-                if choice==3:
+                if choice=='D':
                     while True:
                         global counter
                         print('Вы смотрите на стену сзади')

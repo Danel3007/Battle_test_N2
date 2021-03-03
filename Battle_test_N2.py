@@ -22,7 +22,8 @@ game_state = {
   'pipe':0,
   'crab':0,
   'ballon':0,
-  'trial':0
+  'trial':0,
+  'potions':0
 }
 
 mini_boss_dict = ['Дарт Вейдер(Звездные Войны)','Донки Конг','Призрак(PACMAN)','Локи(Марвел)','Майлз Эджворт(Ace Attorney)','Дио(ДжоДжо Часть 3)']
@@ -157,10 +158,18 @@ class BossRoom:
                     t.sleep(1)
                 
             elif choice == 'B' and not state['taken']==1 and not state['memo']==1 and not state['wall']==1 : # зелья
-                heal = random.randint(20,61) 
-                print('Вы восстановили',heal,'очка здоровья')
-                state['player_health'] += heal
-                t.sleep(1)
+                if state['potions'] <= 1:
+                    print('Вы выпили зелье лечения.')
+                    input()
+                    heal = random.randint(50,150)
+                    print('Вы восстановили',heal,'здоровья')
+                    state['player_health'] += heal
+                    state['potions'] -= 1
+                    input()
+                else:
+                    print('Зелья кончились ¯\_(ツ)_/¯')
+                    continue
+                
             elif choice == 'T' and has_tazer and not state['taken']==1 and not state['memo']==1 and not state['wall']==1 and not state['scared']==1:
                 print("Вы включили электрошокер")
                 if boss=='Дарт Вейдер(Звездные Войны)':
