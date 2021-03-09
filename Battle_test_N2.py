@@ -136,6 +136,7 @@ class BossRoom:
                     hey = int(input())
                     if hey==choose:
                         print('Вы ударили Локи кулаком')
+                        input()
                         print('Это был правильный')
                         dmg = random.randint(20,51)                
                         print('Вы нанесли',dmg,'урона')
@@ -144,8 +145,11 @@ class BossRoom:
                         t.sleep(1)
                     elif hey!=choose:
                         print('Вы ударили Локи кулаком')
+                        input()
                         print('Это был не тот')
+                        input()
                         print('Л:"Честно говоря, я не удивлен"')
+                        input()
                         print('Иллюзии рассеялись')
                         state['choose'] = 0
                         t.sleep(1)
@@ -746,7 +750,3 @@ class BossRoom:
 # else:
 #     print('YOU DIED')
 #     print("")
-
-# print('Вы сыграли в версию 0.3.0')
-# print('Нажмите ENTER чтобы выйти')
-# print('Перезайдите чтобы сразиться с другим боссом (но есть шанс того, что вам попадется тот же босс)')

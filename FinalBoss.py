@@ -20,7 +20,7 @@ game_state = {
 
 #https://youtu.be/ub82Xb1C8os
 
-final_boss_dict = ['Дарт Сидиус(Звездные Войны)','Санс(Undertale)','Дио Брандо(ДжоДжо Часть 3)']
+final_boss_dict = ['Санс(Undertale)','Дио Брандо(ДжоДжо Часть 3)']
 dio_attacks = ['MUDA MUDA MUDA','RODA RORA DA','WRYYYYYYYYY','Армия зомби','Лазерные глаза'] 
 
 evade = 0
@@ -134,7 +134,38 @@ class FinBossRoom:
 
             # Проверки 
             if boss_health <= 0:
-                print("Победа")
+                print("Вы сумели одолеть босса.")
+                input()
+                print('Стена перед вами раздвинулась, за ней показался проход.')
+                input()
+                print('Вы прошли в проход.')
+                input()
+                print('После 10 минут ходьбы вы дошли до конца коридора.')
+                input()
+                print('Там стоит красная дверь с надписью "ВЫХОД".')
+                input()
+                while True:
+                    print('Введите "Open" чтобы открыть дверь:')
+                    o = str(input())
+                    if o=='Open':
+                        print('Вы потянули за ручку и открыли дверь.')
+                        break
+                    else:
+                        print('Вы ввели неправильно.')
+                        input()
+                        continue
+                input()
+                print('Снаружи была пустыня')
+                input()
+                print('Дверь за вами захлопнулась')
+                input()
+                print('...')
+                input()
+                print('...')
+                input()
+                print('Хорошенько подумав, вы пошли куда глаза глядят.')
+                input()
+                print('THE END')
                 return "WIN"
 
             def printEm(text, delay=1):

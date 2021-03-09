@@ -13,9 +13,6 @@ from state import read_state, write_state
 from Battle_test_N2 import BossRoom
 from FinalBoss import FinBossRoom
 
-import blessed
-term = blessed.Terminal()
-
 
 def input_choice(choices):
     with term.cbreak(), term.hidden_cursor():
@@ -55,6 +52,12 @@ print('  просто автор ленивая *опа и он не хочет'
 print('       тратить время на исправление')
 print('       Нажмите Enter если прочитали')
 input()
+t.sleep(2)
+print('       The Adventure     ')
+print('Нажмите Enter чтобы начать')
+input()
+print('Запускаем игру...')
+t.sleep(2)
 
 game_state = {
   'items':[
@@ -131,7 +134,7 @@ lamp_dict = ["лампа.","неоновая лампа.","подсвечник.
 itm_dict = ["лампа.","труба.","ножик.","газовый баллон.","питомец-хедкраб.",'сюрикен.']
 pass1_dict = ["ведет средневековый туннель","ведет лестница вверх.","ведет горка с лестницей.","ведет велодорожка."]
 mini_boss_dict = ['Дарт Вейдер(Звездные Войны)','Донки Конг','Призрак(PACMAN)','Локи(Марвел)','Майлз Эджуорт(Ace Attorney)']
-final_boss_dict = ['Дарт Сидиус(Звездные Войны)','Санс(Undertale)']
+final_boss_dict = ['Санс(Undertale)','Дио Брандо(ДжоДжо Часть 3)']
 
 def random_ItemRoom():
     return ItemRoom(
@@ -270,7 +273,7 @@ def start():
             result = room.battlef(game_state)
 
             if result == "WIN":
-                print('Вы прошли игру!')
+                print('')
             else:
                 print('Вы проиграли :(')
 
@@ -285,7 +288,7 @@ def start():
                 else:
                     continue
             print('Также там лежат 5 зелий лечения.')
-            state['potions'] += 5
+            game_state['potions'] += 5
 
 
         if isinstance(room, Room):
