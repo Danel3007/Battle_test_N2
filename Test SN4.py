@@ -79,7 +79,7 @@ game_state = {
   'pipe':0,
   'crab':0,
   'ballon':0,
-  'potions':0
+  'potions':5
 }
 
 coffee = 0
@@ -266,6 +266,11 @@ def start():
             print()
             room = BossRoom()
             result = room.battle(game_state)
+            
+            if result == "WIN":
+                print('')
+            else:
+                break
 
         if isinstance(room, FinalBossRoom):
             print()
