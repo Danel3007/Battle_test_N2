@@ -26,7 +26,7 @@ game_state = {
   'potions':5
 }
 
-mini_boss_dict = ['Дарт Вейдер(Звездные Войны)','Донки Конг','Призрак(PACMAN)','Локи(Марвел)','Майлз Эджворт(Ace Attorney)','Дио(ДжоДжо Часть 3)']
+mini_boss_dict = ['Дарт Вейдер(Звездные Войны)','Донки Конг','Призрак(PACMAN)','Локи(Марвел)','Майлз Эджворт(Ace Attorney)']
 vader_attacks = ['Сила','Взмах мечом','Легион штурмовиков','Заряд атаки']
 dk_attacks = ['Банановая кожура','Суперудар','Бочка-пушка','Взятие']
 ghost_attacks = ['Страшная рожица','Подход вплотную','Объединение призраков','Растворение']
@@ -161,7 +161,7 @@ class BossRoom:
                     boss_health -= dmg
                     t.sleep(1)
                 
-            elif choice == 'B' and not state['taken']==1 and not state['memo']==1 and not state['wall']==1 : # зелья
+            elif choice == 'B' and not state['taken']==1 and not state['memo']==1: # зелья
                 if state['potions'] >= 1:
                     print('Вы выпили зелье лечения.')
                     input()
@@ -672,18 +672,18 @@ class BossRoom:
                 state['meter'] += 1
 
                 if state['meter']==2:
-                    print('"То что вы делали только что расценивается как покушение на жизнь человека. Я подаю на вас в суд. Вы можете позвонить своему адвокату."')
+                    printEm('"То что вы делали только что расценивается как покушение на жизнь человека.')
                     input()
-                    print('Вы достали телефон и открыли контакты')
+                    printEm('М:"Я подаю на вас в суд. Вы можете позвонить своему адвокату."')
                     input()
-                    print('Вы набрали Феникса Райта')
+                    printEm('Вы достали телефон и открыли контакты')
+                    input()
+                    printEm('Вы набрали Феникса Райта')
                     input()
                     t.sleep(3)
                     printEm('На следующий день')
                     trial()
-                    dmg = 150
-                    boss_health -= dmg
-               
+                    
                 choice = random.choice(miles_attacks)
                 
                 if choice == 'Удар кулаком':
