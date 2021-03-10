@@ -23,7 +23,7 @@ game_state = {
   'crab':0,
   'ballon':0,
   'trial':0,
-  'potions':0
+  'potions':5
 }
 
 mini_boss_dict = ['Дарт Вейдер(Звездные Войны)','Донки Конг','Призрак(PACMAN)','Локи(Марвел)','Майлз Эджворт(Ace Attorney)','Дио(ДжоДжо Часть 3)']
@@ -162,7 +162,7 @@ class BossRoom:
                     t.sleep(1)
                 
             elif choice == 'B' and not state['taken']==1 and not state['memo']==1 and not state['wall']==1 : # зелья
-                if state['potions'] <= 1:
+                if state['potions'] >= 1:
                     print('Вы выпили зелье лечения.')
                     input()
                     heal = random.randint(50,150)
@@ -743,10 +743,11 @@ class BossRoom:
                 printEm("YOU DIED")
                 return "LOSE"
 
-# room = BossRoom()
-# result = room.battle(game_state)
-# if result == 'WIN':
-#     print("")
-# else:
-#     print('YOU DIED')
-#     print("")
+if __name__ == "__main__":
+    room = BossRoom()
+    result = room.battle(game_state)
+    if result == 'WIN':
+        print("")
+    else:
+        print('YOU DIED')
+        print("")

@@ -117,7 +117,7 @@ class FinBossRoom:
                     print('Санс увернулся')
                     
             elif choice == 'B': # зелья
-                if state['potions'] <= 1:
+                if state['potions'] >= 1:
                     print('Вы выпили зелье лечения.')
                     input()
                     heal = random.randint(50,150)
